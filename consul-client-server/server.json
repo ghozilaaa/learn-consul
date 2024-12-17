@@ -1,0 +1,26 @@
+{
+    "node_name": "consul-server",
+    "server": true,
+    "bootstrap" : true,
+    "ui_config": {
+        "enabled" : true
+    },
+    "data_dir": "/consul/data",
+    "addresses": {
+        "http" : "0.0.0.0"
+    },
+    "watches": [
+    {
+      "type": "key",
+      "key": "foo/bar/baz",
+      "handler_type": "http",
+      "http_handler_config": {
+        "path": "http://host.docker.internal:8000/watch",
+        "method": "POST",
+        "header": { "x-foo": ["bar", "baz"] },
+        "timeout": "10s",
+        "tls_skip_verify": false
+      }
+    }
+  ]
+}

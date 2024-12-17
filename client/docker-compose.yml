@@ -1,0 +1,20 @@
+services:
+  consul:
+    container_name: consul-client
+    image: hashicorp/consul:latest
+    environment:
+      - CONSUL_BIND_INTERFACE=eth0
+    volumes:
+      - consul_data_client:/consul/data 
+    networks:
+      - consul
+    restart: always
+    command: consul agent -data-dir=/consul/data -node=go-client-1 -join consul_server
+volumes:
+  consul_data_client:
+    name: consul_data_client
+
+networks:
+  consul:
+    name: consul
+    driver: bridge
